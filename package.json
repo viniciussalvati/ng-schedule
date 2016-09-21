@@ -11,7 +11,7 @@
     "build": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublish": "concurrently \"bower install\" \"typings install\"",
-    "version": "gulp --release && bower version"
+    "release": "gulp --release"
   },
   "author": "",
   "license": "MIT",
