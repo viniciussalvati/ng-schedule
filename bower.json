@@ -5,8 +5,8 @@
   ],
   "description": "",
   "main": [
-    "ngScheduler.js",
-    "ngScheduler.css"
+    "ng-scheduler.js",
+    "ng-scheduler.css"
   ],
   "license": "MIT",
   "repository": {

@@ -27,7 +27,7 @@ const tsProject = ts.createProject('tsconfig.json', {
 gulp.task('ts', function () {
 	const projectSrc = gulp.src([
 		'src/scripts/*.ts'])
-		.pipe(concat('ngScheduler.ts'));
+		.pipe(concat('ng-schedule.ts'));
 
 	const tsCompiled = merge([projectSrc, gulp.src(['typings/**/*.ts', 'src/definitions/**/*.d.ts'])])
 		.pipe(ts(tsProject));
