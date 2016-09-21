@@ -1,37 +1,52 @@
-module ngSchedule {
-	/**
-	 * Creates an empty model with no values selected
-	 */
-	export function createAdScheduleViewModel(): AdScheduleViewModel[] {
-		let model = [];
-		for (let i = 0; i < 7; i++) {
-			model.push({
-				day: <DayOfWeek>i,
-				hours: []
-			});
-		};
+namespace ngSchedule.functions {
 
-		return model;
+	import AdScheduleViewModel = models.AdScheduleViewModel;
+
+	export interface IScheduleUtils {
+		/**
+		 * Creates an empty model with no values selected
+		 */
+		createAdScheduleViewModel(): AdScheduleViewModel[];
+		/**
+		 * Returns true if the schedule is empty. Useful for validation.
+		 */
+		scheduleIsEmpty(schedule: AdScheduleViewModel[]): boolean;
 	}
 
-	/**
-	 * Returns true if the schedule is empty. Useful for validation.
-	 */
-	export function scheduleIsEmpty(schedule: AdScheduleViewModel[]) {
-		if (!schedule || !angular.isArray(schedule)) {
-			return true;
-		}
+	function scheduleUtils(): IScheduleUtils {
+		return {
+			createAdScheduleViewModel(): AdScheduleViewModel[] {
+				let model = [];
+				for (let i = 0; i < 7; i++) {
+					model.push({
+						day: <models.DayOfWeek>i,
+						hours: []
+					});
+				};
 
-		for (let i = 0; i < 7; i++) {
-			let day = schedule[i];
-
-			for (let j = 0; j < 24; j++) {
-				if (day.hours[j]) {
-					return false;
+				return model;
+			},
+			scheduleIsEmpty(schedule: AdScheduleViewModel[]): boolean {
+				if (!schedule || !angular.isArray(schedule)) {
+					return true;
 				}
-			}
-		}
 
-		return true;
+				for (let i = 0; i < 7; i++) {
+					let day = schedule[i];
+
+					for (let j = 0; j < 24; j++) {
+						if (day.hours[j]) {
+							return false;
+						}
+					}
+				}
+
+				return true;
+			}
+		};
 	}
+
+	export const ngScheduleFunctions = angular.module('ngSchedule.functions', []);
+
+	ngScheduleFunctions.factory('scheduleUtils', scheduleUtils);
 }

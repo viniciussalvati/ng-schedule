@@ -1,4 +1,9 @@
-module ngSchedule {
+namespace ngSchedule.models {
+	/**
+	 * Days of the week.
+	 * Goes from Sunday (0) to Saturday (6)
+	 * This was based from .NET's DayOfWeek enum.
+	 */
 	export enum DayOfWeek {
 		Sunday = 0,
 		Monday = 1,
