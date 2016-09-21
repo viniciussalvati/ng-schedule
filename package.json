@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Schedule picker for Angular 1",
   "scripts": {
-    "start": "concurrently \"gulp watch\" \"http-server ./ -c -1\"",
+    "start": "concurrently -k \"gulp watch\" \"http-server ./ -c -1\"",
     "build": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublish": "concurrently \"bower install\" \"typings install\"",
