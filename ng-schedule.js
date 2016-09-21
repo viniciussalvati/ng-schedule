@@ -217,15 +217,7 @@ var ngSchedule;
                     if (!schedule || !angular.isArray(schedule)) {
                         return true;
                     }
-                    for (var i = 0; i < 7; i++) {
-                        var day = schedule[i];
-                        for (var j = 0; j < 24; j++) {
-                            if (day.hours[j]) {
-                                return false;
-                            }
-                        }
-                    }
-                    return true;
+                    return !schedule.some(function (day) { return !!day.hours.length; });
                 }
             };
         }
