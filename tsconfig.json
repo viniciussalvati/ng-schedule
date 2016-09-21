@@ -1,10 +1,15 @@
 {
 	"compilerOptions": {
 		"target": "es5",
-		"module": "none"
+		"module": "none",
+		"declaration": true
 	},
 	"include": [
-		"src/**/*.ts",
+		"src/definitions/**/*.d.ts",
+		"src/scripts/**/*.ts",
 		"typings/**/*.ts"
+	],
+	"exclude": [
+		"build/**/*.ts"
 	]
 }

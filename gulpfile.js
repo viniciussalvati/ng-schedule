@@ -19,15 +19,23 @@ const compiledModuleSeparator = `
 var ngSchedule;
 (function (ngSchedule) {
 `;
-const tsProject = ts.createProject('tsconfig.json');
+
+const tsProject = ts.createProject('tsconfig.json', {
+	typescript: require('typescript')
+});
+
 gulp.task('ts', function () {
 	const projectSrc = gulp.src([
 		'src/scripts/*.ts'])
 		.pipe(concat('ngScheduler.ts'));
 
-	return merge([projectSrc, gulp.src("typings/**/*.ts")])
-		.pipe(ts(tsProject))
-		.pipe(replace(compiledModuleSeparator, '\n\n'))
+	const tsCompiled = merge([projectSrc, gulp.src(['typings/**/*.ts', 'src/definitions/**/*.d.ts'])])
+		.pipe(ts(tsProject));
+
+	return merge([
+		tsCompiled.js.pipe(replace(compiledModuleSeparator, '\n\n')),
+		tsCompiled.dts
+	])
 		.pipe(gulp.dest('build'))
 		.pipe(gulpIf(release, gulp.dest('./')));
 });

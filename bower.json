@@ -4,7 +4,10 @@
     "Vinicius Salvati Melquiades <vinicius.melquiades@outlook.com>"
   ],
   "description": "",
-  "main": "",
+  "main": [
+    "ngScheduler.js",
+    "ngScheduler.css"
+  ],
   "license": "MIT",
   "homepage": "",
   "ignore": [
