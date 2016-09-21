@@ -11,14 +11,13 @@ schedule-picker table {
 	> tbody > tr {
 		th {
 			// This is the column that shows the time.
-			width: 1px; //width is 1px so it takes as little space as posibble;
 			padding-left: 5px;
 			padding-right: 5px;
 		}
 
 		td {
-			width: 100% / 7;
-			background: transparentize($color: red, $amount: 0.5);
+			width: (100% / 7);
+			background: transparentize(red, 0.5);
 			border-radius: 0;
 			border-width: 1px 1px 0 0;
 			border-style: solid;
