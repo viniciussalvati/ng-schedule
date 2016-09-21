@@ -1,0 +1,23 @@
+{
+  "name": "ng-schedule",
+  "authors": [
+    "Vinicius Salvati Melquiades <vinicius.melquiades@outlook.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "latest"
+  },
+  "devDependencies": {
+    "moment": "latest"
+  }
+}

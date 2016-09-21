@@ -1,0 +1,8 @@
+{
+  "name": "ng-schedule",
+  "dependencies": {},
+  "globalDependencies": {
+    "angular": "registry:dt/angular#1.5.0+20160920144239",
+    "moment": "registry:dt/moment#2.11.1+20160829143156"
+  }
+}
