@@ -31,17 +31,7 @@ namespace ngSchedule.functions {
 					return true;
 				}
 
-				for (let i = 0; i < 7; i++) {
-					let day = schedule[i];
-
-					for (let j = 0; j < 24; j++) {
-						if (day.hours[j]) {
-							return false;
-						}
-					}
-				}
-
-				return true;
+				return !schedule.some(day => !!day.hours.length);
 			}
 		};
 	}
