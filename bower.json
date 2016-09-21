@@ -9,7 +9,16 @@
     "ngScheduler.css"
   ],
   "license": "MIT",
-  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/viniciusmelquiades/ng-schedule.git"
+  },
+  "keywords": [
+    "angular",
+    "schedule",
+    "ngScheduler"
+  ],
+  "homepage": "https://github.com/viniciusmelquiades/ng-schedule",
   "ignore": [
     "**/.*",
     "node_modules",

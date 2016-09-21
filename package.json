@@ -2,6 +2,10 @@
   "name": "ng-schedule",
   "version": "0.1.0",
   "description": "Schedule picker for Angular 1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/viniciusmelquiades/ng-schedule.git"
+  },
   "scripts": {
     "start": "concurrently -k \"gulp watch\" \"http-server ./ -c -1\"",
     "build": "gulp",
