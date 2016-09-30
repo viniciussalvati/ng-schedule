@@ -12,6 +12,7 @@ namespace ngSchedule.directives {
 
 	interface ISchedulePickerScope extends ng.IScope {
 		days: string[];
+		timeFormat: string;
 	}
 
 	interface ISchedulePickerAttributes extends ng.IAttributes {
@@ -163,7 +164,10 @@ namespace ngSchedule.directives {
 			restrict: 'E',
 			require: 'ngModel',
 			link: link,
-			scope: {},
+			scope: {
+				ngModel: '=',
+				timeFormat: '@'
+			},
 			template: `
 <table>
 	<thead>
@@ -182,6 +186,8 @@ namespace ngSchedule.directives {
 			const el: Element = element[0];
 
 			const table = <HTMLTableElement>el.querySelector('table');
+
+			var timeFormat = scope.timeFormat || 'H\\h';
 
 			if (attrs.days) {
 				let days = <string[]>scope.$parent.$eval(attrs.days);
@@ -202,7 +208,7 @@ namespace ngSchedule.directives {
 				hours: string[] = [];
 			for (let i = 0; i < 24; i++) {
 
-				hours.push(start.format('H:mma'));
+				hours.push(start.format(timeFormat));
 
 				start.add(1, 'hour');
 			}

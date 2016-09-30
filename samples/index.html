@@ -9,7 +9,7 @@
 
 <body>
 	<form name="testForm">
-		<schedule-picker name="schedule" ng-model="sampleSchedule" ng-required="true"></schedule-picker>
+		<schedule-picker name="schedule" ng-model="sampleSchedule" ng-required="true" time-format="HH:mm"></schedule-picker>
 		<div>
 			<span>Schedule is valid?</span>
 			<b>{{testForm.schedule.$valid}}</b>
