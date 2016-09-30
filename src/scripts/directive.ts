@@ -165,7 +165,6 @@ namespace ngSchedule.directives {
 			require: 'ngModel',
 			link: link,
 			scope: {
-				ngModel: '=',
 				timeFormat: '@'
 			},
 			template: `
