@@ -104,12 +104,15 @@ var ngSchedule;
                 restrict: 'E',
                 require: 'ngModel',
                 link: link,
-                scope: {},
+                scope: {
+                    timeFormat: '@'
+                },
                 template: "\n<table>\n\t<thead>\n\t\t<tr>\n\t\t\t<th></th>\n\t\t\t<th ng-repeat=\"day in days track by $index\">{{::day}}</th>\n\t\t</tr>\n\t</thead>\n\t<!--<tbody>\n\t</tbody>-->\n</table>"
             };
             function link(scope, element, attrs, ngModel) {
                 var el = element[0];
                 var table = el.querySelector('table');
+                var timeFormat = scope.timeFormat || 'H\\h';
                 if (attrs.days) {
                     var days = scope.$parent.$eval(attrs.days);
                     if (angular.isArray(days))
@@ -126,7 +129,7 @@ var ngSchedule;
                 }
                 var start = moment().startOf('day'), hours = [];
                 for (var i = 0; i < 24; i++) {
-                    hours.push(start.format('H:mma'));
+                    hours.push(start.format(timeFormat));
                     start.add(1, 'hour');
                 }
                 var capturing = null;

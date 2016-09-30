@@ -8,7 +8,7 @@ schedule-picker table {
     padding-right: 5px; }
   schedule-picker table > tbody > tr td {
     width: 14.28571%;
-    background: rgba(255, 0, 0, 0.5);
+    background-color: rgba(255, 0, 0, 0.5);
     border-radius: 0;
     border-width: 1px 1px 0 0;
     border-style: solid;
@@ -16,8 +16,8 @@ schedule-picker table {
     schedule-picker table > tbody > tr td:first-of-type {
       border-left-width: 1px; }
     schedule-picker table > tbody > tr td.selected {
-      background: rgba(0, 0, 255, 0.5); }
+      background-color: rgba(0, 0, 255, 0.5); }
     schedule-picker table > tbody > tr td.selecting {
-      background: rgba(0, 255, 255, 0.5); }
+      background-color: rgba(0, 255, 255, 0.5); }
   schedule-picker table > tbody > tr:last-of-type td {
     border-bottom-width: 1px; }
