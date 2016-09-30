@@ -17,7 +17,7 @@ schedule-picker table {
 
 		td {
 			width: (100% / 7);
-			background: transparentize(red, 0.5);
+			background-color: transparentize(red, 0.5);
 			border-radius: 0;
 			border-width: 1px 1px 0 0;
 			border-style: solid;
@@ -28,11 +28,11 @@ schedule-picker table {
 			}
 
 			&.selected {
-				background: transparentize(blue, 0.5);
+				background-color: transparentize(blue, 0.5);
 			}
 
 			&.selecting {
-				background: transparentize(cyan, 0.5);
+				background-color: transparentize(cyan, 0.5);
 			}
 		}
 
