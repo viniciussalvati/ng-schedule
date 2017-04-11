@@ -145,7 +145,8 @@ var ngSchedule;
                         ngModel.$setViewValue(model);
                     }
                     var body = table.tBodies[0];
-                    body && body.remove();
+                    // do not use body.remove() because it doesn't work on IE11-
+                    body && body.parentNode.removeChild(body);
                     body = table.createTBody();
                     body.appendChild(getTableBody(hours, model));
                     capturing = null;
