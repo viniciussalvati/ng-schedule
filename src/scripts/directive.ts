@@ -229,7 +229,8 @@ namespace ngSchedule.directives {
 
 				let body = <HTMLTableSectionElement>table.tBodies[0];
 
-				body && body.remove();
+				// do not use body.remove() because it doesn't work on IE11-
+				body && body.parentNode.removeChild(body);
 
 				body = table.createTBody();
 
