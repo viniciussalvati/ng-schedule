@@ -105,7 +105,8 @@ var ngSchedule;
                 require: 'ngModel',
                 link: link,
                 scope: {
-                    timeFormat: '@'
+                    timeFormat: '@',
+                    readonly: '@'
                 },
                 template: "\n<table>\n\t<thead>\n\t\t<tr>\n\t\t\t<th></th>\n\t\t\t<th ng-repeat=\"day in days track by $index\">{{::day}}</th>\n\t\t</tr>\n\t</thead>\n\t<!--<tbody>\n\t</tbody>-->\n</table>"
             };
@@ -113,6 +114,7 @@ var ngSchedule;
                 var el = element[0];
                 var table = el.querySelector('table');
                 var timeFormat = scope.timeFormat || 'H\\h';
+                var readonly = scope.readonly || false;
                 if (attrs.days) {
                     var days = scope.$parent.$eval(attrs.days);
                     if (angular.isArray(days))
@@ -151,50 +153,50 @@ var ngSchedule;
                     body.appendChild(getTableBody(hours, model));
                     capturing = null;
                     var allCells = angular.element(body).find('td');
-                    body.addEventListener('mousedown', function (e) {
-                        var target = e.target;
-                        if (!target || target.nodeName !== 'TD') {
-                            return;
+                    if (readonly === false) {
+                        body.addEventListener('mousedown', function (e) {
+                            var target = e.target;
+                            if (!target || target.nodeName !== 'TD') {
+                                return;
+                            }
+                            e.preventDefault();
+                            if (capturing) {
+                                done(e);
+                            }
+                            else {
+                                capturing = {
+                                    start: target,
+                                    end: target
+                                };
+                                dragMove(capturing, body, allCells);
+                            }
+                        });
+                        //body.on('mousedown', 'td', );
+                        function done(e) {
+                            if (!capturing)
+                                return;
+                            var target = e.target;
+                            if (!target || target.nodeName !== 'TD') {
+                                return;
+                            }
+                            capturing.end = target;
+                            model = doneDrag(capturing, allCells);
+                            ngModel.$setViewValue(model, e.type);
+                            capturing = null;
                         }
-                        e.preventDefault();
-                        if (capturing) {
-                            done(e);
-                        }
-                        else {
-                            capturing = {
-                                start: target,
-                                end: target
-                            };
+                        body.addEventListener('mouseup', done);
+                        body.addEventListener('mousemove', function (e) {
+                            var target = e.target;
+                            if (!target || target.nodeName !== 'TD') {
+                                return;
+                            }
+                            e.preventDefault();
+                            if (!capturing)
+                                return;
+                            capturing.end = target;
                             dragMove(capturing, body, allCells);
-                        }
-                    });
-                    //body.on('mousedown', 'td', );
-                    function done(e) {
-                        if (!capturing)
-                            return;
-                        var target = e.target;
-                        if (!target || target.nodeName !== 'TD') {
-                            return;
-                        }
-                        capturing.end = target;
-                        model = doneDrag(capturing, allCells);
-                        ngModel.$setViewValue(model, e.type);
-                        capturing = null;
+                        });
                     }
-                    body.addEventListener('mouseup', done);
-                    body.addEventListener('mousemove', function (e) {
-                        var target = e.target;
-                        if (!target || target.nodeName !== 'TD') {
-                            return;
-                        }
-                        e.preventDefault();
-                        if (!capturing)
-                            return;
-                        capturing.end = target;
-                        dragMove(capturing, body, allCells);
-                    });
-                    //body.on('mouseup', 'td', done);
-                    //body.on('mousemove', 'td', );
                 };
             }
         }
