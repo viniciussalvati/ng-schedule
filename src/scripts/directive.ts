@@ -13,6 +13,7 @@ namespace ngSchedule.directives {
 	interface ISchedulePickerScope extends ng.IScope {
 		days: string[];
 		timeFormat: string;
+		readonly: boolean;
 	}
 
 	interface ISchedulePickerAttributes extends ng.IAttributes {
@@ -165,7 +166,8 @@ namespace ngSchedule.directives {
 			require: 'ngModel',
 			link: link,
 			scope: {
-				timeFormat: '@'
+				timeFormat: '@',
+				readonly: '@'
 			},
 			template: `
 <table>
@@ -187,6 +189,8 @@ namespace ngSchedule.directives {
 			const table = <HTMLTableElement>el.querySelector('table');
 
 			var timeFormat = scope.timeFormat || 'H\\h';
+			var readonly = scope.readonly || false;
+			
 
 			if (attrs.days) {
 				let days = <string[]>scope.$parent.$eval(attrs.days);
@@ -239,68 +243,71 @@ namespace ngSchedule.directives {
 				capturing = null;
 				let allCells = angular.element(body).find('td');
 
-				body.addEventListener('mousedown', e => {
-					let target = <Element>e.target;
-					if (!target || target.nodeName !== 'TD') {
-						return;
+				if(readonly === false){
+					body.addEventListener('mousedown', e => {
+						let target = <Element>e.target;
+						if (!target || target.nodeName !== 'TD') {
+							return;
+						}
+
+						e.preventDefault();
+
+						if (capturing) {
+							done(e);
+						} else {
+
+							capturing = {
+								start: target,
+								end: target
+							};
+
+							dragMove(capturing, body, allCells);
+						}
+					});
+				
+
+					//body.on('mousedown', 'td', );
+
+					function done(e: Event) {
+
+						if (!capturing) return;
+
+						let target = <Element>e.target
+						if (!target || target.nodeName !== 'TD') {
+							return;
+						}
+
+
+						capturing.end = target;
+
+						model = doneDrag(capturing, allCells);
+
+						ngModel.$setViewValue(model, e.type);
+
+						capturing = null;
 					}
+					
+					body.addEventListener('mouseup', done);
 
-					e.preventDefault();
+					body.addEventListener('mousemove', e => {
+						let target = <Element>e.target
+						if (!target || target.nodeName !== 'TD') {
+							return;
+						}
 
-					if (capturing) {
-						done(e);
-					} else {
+						e.preventDefault();
 
-						capturing = {
-							start: target,
-							end: target
-						};
+						if (!capturing) return;
+
+						capturing.end = target;
 
 						dragMove(capturing, body, allCells);
-					}
-				})
+					});
 
-				//body.on('mousedown', 'td', );
+					//body.on('mouseup', 'td', done);
 
-				function done(e: Event) {
-
-					if (!capturing) return;
-
-					let target = <Element>e.target
-					if (!target || target.nodeName !== 'TD') {
-						return;
-					}
-
-
-					capturing.end = target;
-
-					model = doneDrag(capturing, allCells);
-
-					ngModel.$setViewValue(model, e.type);
-
-					capturing = null;
+					//body.on('mousemove', 'td', );
 				}
-
-				body.addEventListener('mouseup', done);
-
-				body.addEventListener('mousemove', e => {
-					let target = <Element>e.target
-					if (!target || target.nodeName !== 'TD') {
-						return;
-					}
-
-					e.preventDefault();
-
-					if (!capturing) return;
-
-					capturing.end = target;
-
-					dragMove(capturing, body, allCells);
-				});
-
-				//body.on('mouseup', 'td', done);
-
-				//body.on('mousemove', 'td', );
 			};
 		}
 	}
